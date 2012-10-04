@@ -374,16 +374,21 @@
 		 */
 		History.getBaseHref = function(){
 			// Create
-			var
-				baseElements = document.getElementsByTagName('base'),
+			var 
+				baseElements = [],
 				baseElement = null,
-				baseHref = '';
+				baseHref = History.baseHrefOverride || '';
 
-			// Test for Base Element
-			if ( baseElements.length === 1 ) {
-				// Prepare for Base Element
-				baseElement = baseElements[0];
-				baseHref = baseElement.href.replace(/[^\/]+$/,'');
+			if (!baseHref) {
+
+				baseElements = document.getElementsByTagName('base');
+
+				// Test for Base Element
+				if ( baseElements.length === 1 ) {
+					// Prepare for Base Element
+					baseElement = baseElements[0];
+					baseHref = baseElement.href.replace(/[^\/]+$/,'');
+				}
 			}
 
 			// Adjust trailing slash
